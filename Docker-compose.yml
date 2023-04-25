@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  db-mysql:
+    image: mysql:8.0.32
+    environment:
+      MYSQL_DATABASE: wtet
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./db:/var/lib/mysql
+      - ./init/:/docker-entrypoint-initdb.d/
+    ports:
+      - 3306:3306
+    networks:
+      - springboot-mysql-wtet
+
+  wtet:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db-mysql
+    links:
+      - db-mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db-mysql:3306/wtet
+      SPRING_DATASOURCE_USER: root
+      SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - springboot-mysql-wtet
+
+networks:
+  springboot-mysql-wtet:
+    driver: bridge
