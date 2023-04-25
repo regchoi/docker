@@ -3,8 +3,7 @@
 ### 사용법 (Docker-compose 이용시)
 1. clone docker repository
 2. docker-compose up 입력
----
-***
+#
 ### 사용법 (Dockerfile 이용시)
 1. clone docker repository
 2. 터미널을 실행시키고 docker 파일로 이동합니다(ls 입력시 init폴더와 Dockerfile, Docker-compose.yml, *.jar파일이 있어야합니다)
